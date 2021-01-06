@@ -1,0 +1,86 @@
+﻿@model CpastroneSkiRental.Models.Deal
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<h4>Deal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="Deals" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ItemDescription" class="control-label"></label>
+                <input asp-for="ItemDescription" class="form-control" />
+                <span asp-validation-for="ItemDescription" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label asp-for="DealGender" class="control-label"></label>
+                    @Html.RadioButtonFor(model => model.DealGender, "M", false)  @Html.Label("Male")
+                    @Html.RadioButtonFor(model => model.DealGender, "F", false)  @Html.Label("Female")
+                    <span asp-validation-for="DealGender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="RentType" class="control-label"></label>
+                    <input asp-for="RentType" class="form-control" />
+                    <span asp-validation-for="RentType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label asp-for="ItemSize" class="control-label"></label>
+                    <input asp-for="ItemSize" id="size" class="form-control" />
+                    <span asp-validation-for="ItemSize" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ItemAltSize" class="control-label"></label>
+                    <input asp-for="ItemAltSize" class="form-control" />
+                    <span asp-validation-for="ItemAltSize" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ItemStatus" class="control-label"></label>
+                    <input asp-for="ItemStatus" class="form-control" />
+                    <span asp-validation-for="ItemStatus" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ItemImage" class="control-label"></label>
+                    <i class="fa fa-plus-circle fa-5x" type="button" style="display:block;width:110px; height:50px;" onclick="document.getElementById('uploadFile').click()"></i>
+                    <input type="file" asp-for="ItemImage" name="files" style="visibility:hidden;" id="uploadFile" />
+                    <span asp-validation-for="ItemImage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#size").focus(function() {
+            alert("Enter 0 if not applicable");
+        });
+    });
+
+    </script>

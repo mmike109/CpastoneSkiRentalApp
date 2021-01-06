@@ -1,0 +1,160 @@
+﻿@model CpastroneSkiRental.Models.JoinedClass
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<WebsiteUser> sm
+@inject UserManager<WebsiteUser> um
+
+@{
+    ViewData["Title"] = "Confirmation Page";
+}
+
+
+@if (sm.IsSignedIn(User))
+{
+    var userId = um.GetUserId(User);
+    var user = await um.GetUserAsync(User);
+    var userName = user.FirstName + " " + user.LastName;
+
+
+    <h1>Hi,<span>@userName </span>  Thank you for your order!</h1>
+
+    <h3>Order Summary:</h3>
+
+    <p hidden>@ViewBag.itemId</p>
+
+    <div class="col-md-5 mb-3">
+        <text>
+            Description:
+        </text>
+    </div>
+    <div class="col-md-7 mb-3">
+        <text>
+            @ViewBag.itemDesc
+        </text>
+    </div>
+
+    <div class="col-md-5 mb-3">
+        <text>
+            Rent Start:
+        </text>
+    </div>
+    <div class="col-md-7 mb-3">
+        <text>
+            @ViewBag.startDate.ToString("yyyy-MM-dd")
+        </text>
+    </div>
+    <div class="col-md-5 mb-3">
+        <text>
+            Rent Ends:
+        </text>
+    </div>
+    <div class="col-md-7 mb-3">
+        <text>
+            @ViewBag.endRent.ToString("yyyy-MM-dd")
+        </text>
+    </div>
+    <div class="col-md-5 mb-3">
+        <text>
+            Price:
+        </text>
+    </div>
+    <div class="col-md-7 mb-3">
+        <text>
+            $@ViewBag.price
+        </text>
+    </div>
+    <div class="col-md-5 mb-3">
+        <text>
+            Rend Duration:
+        </text>
+    </div>
+    <div class="col-md-7 mb-3">
+        <text>
+            @ViewBag.totalDays
+        </text>
+    </div>
+
+    <a asp-controller="Home" asp-action="Index">Back Home List</a>
+  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        var data = [];
+
+
+
+           @{ <Text>
+        data.push('@ViewBag.itemId');
+
+            </Text>
+                  <Text>
+        data.push(' @ViewBag.itemDesc');
+            </Text>
+                <Text>
+        data.push('@ViewBag.startDate.ToString("yyyy-MM-dd")');
+            </Text>
+            <Text>
+        data.push('@ViewBag.endRent.ToString("yyyy-MM-dd")');
+            </Text>
+            <Text>
+        data.push('@ViewBag.totalDays');
+            </Text>
+            <Text>
+        data.push('@userName');
+            </Text>
+                  <Text>
+        data.push('@userId');
+            </Text>
+               }
+    @if( @ViewBag.isEmpty.Equals("false"))
+    {
+        <Text>
+           $.ajax({
+                type: "POST",
+                    url: "/Rentals/CreateBundleInBackground/",
+                    data: {
+                    id: data[0], 
+                    startRent: data[2], endRent: data[3], totalDays: parseInt(data[4]),userName: data[5],userId: data[6]
+                        }
+                    
+                });
+
+        $.ajax({
+                    type: "POST",
+                    url: "/Deals/EditDeal/",
+                    data: { id: data[0] }
+                });
+
+        
+        </Text>
+    }
+    else
+    {
+          <Text>
+              $.ajax({
+                type: "POST",
+                    url: "/Rentals/CreateInBackground/",
+                    data: {
+                    id: parseInt(data[0]), itemDescription: data[1],
+                    startRent: data[2], endRent: data[3], totalDays: parseInt(data[4]),userName: data[5],userId: data[6]
+                         }
+                });
+
+        $.ajax({
+                    type: "POST",
+                    url: "/Items/EditItem/",
+                    data: { id: parseInt(data[0]) }
+                    
+                });
+
+        </Text>
+    }
+
+    
+
+
+             });
+
+    </script>
+}

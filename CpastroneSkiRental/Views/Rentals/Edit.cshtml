@@ -1,0 +1,71 @@
+﻿@model CapstoneISki.Data.Rental
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Rental</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <div class="form-group">
+                <label asp-for="ItemId" class="control-label"></label>
+                <input asp-for="ItemId" class="form-control" />
+                <span asp-validation-for="ItemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DealId" class="control-label"></label>
+                <input asp-for="DealId" class="form-control" />
+                <span asp-validation-for="DealId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDescription" class="control-label"></label>
+                <input asp-for="ItemDescription" class="form-control" />
+                <span asp-validation-for="ItemDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentalStartDate" class="control-label"></label>
+                <input asp-for="RentalStartDate" class="form-control" />
+                <span asp-validation-for="RentalStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentalReturnDate" class="control-label"></label>
+                <input asp-for="RentalReturnDate" class="form-control" />
+                <span asp-validation-for="RentalReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DayesRented" class="control-label"></label>
+                <input asp-for="DayesRented" class="form-control" />
+                <span asp-validation-for="DayesRented" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemStatus" class="control-label"></label>
+                <input asp-for="ItemStatus" class="form-control" />
+                <span asp-validation-for="ItemStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

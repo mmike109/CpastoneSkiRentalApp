@@ -1,0 +1,84 @@
+﻿@model CapstoneISki.Data.Item
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+<h3>Are you sure you want to delete this product?</h3>
+&nbsp;
+<div> 
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Maker)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Maker)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemGender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemGender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemSize)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemSize)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemAltSize)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.ItemAltSize == null)
+            {
+                <text>
+                    N/A
+                </text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.ItemAltSize)
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemImage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemImage)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ItemId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="ProductsDisplay">Back to List</a>
+    </form>
+</div>

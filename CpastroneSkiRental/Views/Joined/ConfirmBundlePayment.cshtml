@@ -1,0 +1,144 @@
+﻿@model CpastroneSkiRental.Models.JoinedClass
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+&nbsp;
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="form-row">
+            <div hidden>
+                <text>
+                    @ViewBag.id
+                </text>
+            </div>
+
+            <div class="col-md-5 mb-3">
+                <text>
+                    Description:
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <text>
+                    @ViewBag.ItemDes
+                </text>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    User Name:
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <text>
+                    @ViewBag.UserName
+                </text>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    Rent Start:
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <text>
+                    @ViewBag.StartRent.ToString("yyyy-MM-dd")
+                </text>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    Return Date:
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <text>
+                    @ViewBag.EndRent.ToString("yyyy-MM-dd")
+                </text>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    Total Days:
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <text>
+                    @ViewBag.Total
+                </text>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    Total Price:
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <text>
+                    $@ViewBag.Price
+                </text>
+            </div>
+        </div>
+
+        <form asp-controller="Items" asp-action="CheckOut">
+            <input type="hidden" name="total" value="@ViewBag.Price" />
+            <input type="submit" id="checkoutBtn" value="checkout" class="btn btn-danger" />
+        </form>
+        <a asp-controller="Deals" asp-action="Index">Back to Deals</a>
+
+
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var data = [];
+        $("#checkoutBtn").on("click", function (e) {
+
+           @{ <Text>
+        data.push('@ViewBag.id');
+
+            </Text>
+                  <Text>
+        data.push(' @ViewBag.ItemDes');
+            </Text>
+                <Text>
+        data.push('@ViewBag.StartRent.ToString("yyyy-MM-dd")');
+            </Text>
+            <Text>
+        data.push('@ViewBag.EndRent.ToString("yyyy-MM-dd")');
+            </Text>
+            <Text>
+        data.push('@ViewBag.Total');
+            </Text>
+            <Text>
+        data.push('@ViewBag.Price');
+            </Text>
+
+               }
+
+
+    $.ajax({
+             type: "POST",
+              url: "/Joined/Confirm/",
+              data: {
+                    id: null, itemDescription: data[1],
+                    startRent: data[2], endRent: data[3], totalDays: parseInt(data[4]), isItem: false, price: data[5]
+               }
+
+                });
+
+            });
+    });
+</script>

@@ -1,0 +1,97 @@
+﻿@model CapstoneISki.Data.Item
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Item</h4>
+<hr />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="Items" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <label asp-for="Maker" class="control-label"></label>
+                    <input asp-for="Maker" class="form-control" />
+                    <span asp-validation-for="Maker" class="text-danger"></span>
+                </div>
+                <div class="col-md-7 mb-3">
+                    <label asp-for="ItemType" class="control-label"></label>
+                    <input asp-for="ItemType" class="form-control" />
+                    <span asp-validation-for="ItemType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label asp-for="ItemGender" class="control-label"></label>
+                    @Html.RadioButtonFor(model => model.ItemGender, "M", false)  @Html.Label("Male")
+                    @Html.RadioButtonFor(model => model.ItemGender, "F", false)  @Html.Label("Female")
+                    <span asp-validation-for="ItemGender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label asp-for="ItemSize" class="control-label"></label>
+                    <input asp-for="ItemSize" id="size" class="form-control" />
+                    <span asp-validation-for="ItemSize" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ItemAltSize" class="control-label"></label>
+                    <input asp-for="ItemAltSize" class="form-control" />
+                    <span asp-validation-for="ItemAltSize" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Level" class="control-label"></label>
+                    <input asp-for="Level" class="form-control" />
+                    <span asp-validation-for="Level" class="text-danger"></span>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label asp-for="ItemStatus" class="control-label"></label>
+                    <input asp-for="ItemStatus" class="form-control" />
+                    <span asp-validation-for="ItemStatus" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ItemImage" class="control-label"></label>
+                    <i class="fa fa-plus-circle fa-5x" type="button" style="display:block;width:120px; height:50px;" onclick="document.getElementById('uploadFile').click()"></i>
+                    <input type="file" asp-for="ItemImage" name="files" style="visibility:hidden;" id="uploadFile" />
+                    <span asp-validation-for="ItemImage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+        $("#size").focus(function() {
+            alert("Enter 0 if not applicable");
+        });
+    });
+    </script>

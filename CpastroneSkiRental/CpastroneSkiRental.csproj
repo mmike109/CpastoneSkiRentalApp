@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-CpastroneSkiRental-5BEAE072-6D8B-442E-A347-94017CEFC581</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200529185801_init.cs" />
+    <Compile Remove="Data\Migrations\20200529185801_init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200710175026_rentals.cs" />
+    <Compile Remove="Data\Migrations\20200710175026_rentals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200731195939_itemDes.cs" />
+    <Compile Remove="Data\Migrations\20200731195939_itemDes.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200731200900_newMig.cs" />
+    <Compile Remove="Data\Migrations\20200731200900_newMig.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200731201249_rent.cs" />
+    <Compile Remove="Data\Migrations\20200731201249_rent.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200731202417_rental.cs" />
+    <Compile Remove="Data\Migrations\20200731202417_rental.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811172555_deals.cs" />
+    <Compile Remove="Data\Migrations\20200811172555_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811175234_deals.cs" />
+    <Compile Remove="Data\Migrations\20200811175234_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811175729_deals.cs" />
+    <Compile Remove="Data\Migrations\20200811175729_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811191059_dealsUpdate.cs" />
+    <Compile Remove="Data\Migrations\20200811191059_dealsUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811193450_dealsUpdate.cs" />
+    <Compile Remove="Data\Migrations\20200811193450_dealsUpdate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811193644_deals.cs" />
+    <Compile Remove="Data\Migrations\20200811193644_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200811193844_deals.cs" />
+    <Compile Remove="Data\Migrations\20200811193844_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200812181756_deals.cs" />
+    <Compile Remove="Data\Migrations\20200812181756_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200812181904_deals.cs" />
+    <Compile Remove="Data\Migrations\20200812181904_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200812182201_deals.cs" />
+    <Compile Remove="Data\Migrations\20200812182201_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200812182455_deals.cs" />
+    <Compile Remove="Data\Migrations\20200812182455_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200812182839_deals.cs" />
+    <Compile Remove="Data\Migrations\20200812182839_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200812183258_deals.cs" />
+    <Compile Remove="Data\Migrations\20200812183258_deals.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200814200503_rental.cs" />
+    <Compile Remove="Data\Migrations\20200814200503_rental.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200926194049_addedRepairItems.cs" />
+    <Compile Remove="Data\Migrations\20200926194049_addedRepairItems.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200926194218_addedRepairItems.cs" />
+    <Compile Remove="Data\Migrations\20200926194218_addedRepairItems.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201026192917_itemModelAttChanges.cs" />
+    <Compile Remove="Data\Migrations\20201026192917_itemModelAttChanges.Designer.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+</Project>

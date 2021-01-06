@@ -1,0 +1,112 @@
+﻿@model CpastroneSkiRental.Controllers.PaginatedList<CpastroneSkiRental.Models.Deal>
+
+@{
+    ViewData["Title"] = "Deals";
+}
+
+<h1>Deals</h1>
+
+<style type="text/css">
+    #pictureLink{
+        width:350px;
+        height:330px;
+    }
+</style>
+<form asp-action="Index" method="get">
+    <p>
+        Filter by Manufacturer: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />  |
+        Items category:  <select asp-for="@Model.FirstOrDefault().DealId" asp-items="@ViewBag.DealId">
+            |
+        </select>
+        <input id="cliker" type="submit" value="Search" class="btn btn-primary" /> |
+        <a asp-action="Index">All Products</a>
+    </p>
+</form>
+
+
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        @if ((@item.ItemStatus == "Rented" || @item.ItemStatus == "Reparing"))
+        {
+            <a id="picLink" asp-controller="Joined" style="display:none" ; asp-action="CreateBundleOrder" asp-route-id="@item.DealId">
+                <div id="pictureLink" class="card">
+                    <img src="~/img/@item.ItemImage" width=300 height=200 class="card-img-top" />
+                    <div id="itemCard" class="card-body">
+                        <h9 class="card-title text-center text-body">@item.ItemDescription</h9>
+                        @if (@item.ItemSize != 0)
+                        {
+                            <h9 class="card-title text-center text-body">@item.ItemSize cm</h9>
+                        }
+                        else
+                        {
+                            <h9 class="card-title text-center text-body">Size @item.ItemAltSize</h9>
+                        }
+                        <h9 class="card-title text-center text-body">Rent Price: @item.Price$</h9>
+                    </div>
+
+                </div>
+            </a>
+        }else {
+
+
+            <a id="picLink" asp-controller="Joined"  asp-action="CreateBundleOrder" asp-route-id="@item.DealId">
+                <div id="pictureLink" class="card">
+                    <img src="~/img/@item.ItemImage" width=300 height=200 class="card-img-top" />
+                    <div id="itemCard" class="card-body">
+                        <h9 class="card-title text-center text-body">@item.ItemDescription</h9>
+                        @if (@item.ItemSize != 0)
+                        {
+                            <h9 class="card-title text-center text-body">@item.ItemSize cm</h9>
+                        }
+                        else
+                        {
+                            <h9 class="card-title text-center text-body">Size @item.ItemAltSize</h9>
+                        }
+                        <h9 class="card-title text-center text-body">Rent Price: @item.Price$</h9>
+                    </div>
+
+                </div>
+            </a>
+        }
+
+    }
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+
+<ul class="pagination">
+    <li class="page-item @prevDisabled">
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-dealId="@ViewData["Deal"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">Previous</a>
+    </li>
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-dealId="@ViewData["Deal"]"
+               asp-route-pageNumber="@i"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link">
+                @i
+            </a>
+        </li>
+    }
+    <li class="page-item @nextDisabled">
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-dealId="@ViewData["Deal"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">Next</a>
+    </li>
+</ul>
+

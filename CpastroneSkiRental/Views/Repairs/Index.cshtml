@@ -1,0 +1,117 @@
+﻿
+@model CpastroneSkiRental.Controllers.PaginatedList<CpastroneSkiRental.Models.Repair>
+
+@{
+    ViewData["Title"] = "Items on repair";
+}
+
+<h1>Items On Repair</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DealId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Condition)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+
+                    @if ((item.ProductId).Equals(0))
+                    {
+                        <text>
+                            N/A
+                        </text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    }
+                </td>
+                <td>
+                    @if ((item.ItemId).Equals(0))
+                    {
+                        <text>
+                            N/A
+                        </text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.ItemId)
+                    }
+                </td>
+                <td>
+                    @if ((item.DealId).Equals(Guid.Empty))
+                    {
+                        <text>
+                            N/A
+                        </text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.DealId)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition)
+                   
+                        <a asp-controller="Repairs" asp-action="EndBundleRepair" asp-route-id="@item.RepairId" >Edit</a>
+                
+                </td>
+              
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+
+
+
+<ul class="pagination">
+    <li class="page-item @prevDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="page-link">Previous</a>
+    </li>
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+            <a asp-action="Index"
+               asp-route-pageNumber="@i"
+               class="page-link">
+                @i
+            </a>
+        </li>
+    }
+    <li class="page-item @nextDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="page-link">Next</a>
+    </li>
+</ul>
+

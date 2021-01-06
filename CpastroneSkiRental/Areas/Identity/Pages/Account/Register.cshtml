@@ -1,0 +1,236 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+   
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h4>Create a new account.</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.FirstName"></label>
+            <input asp-for="Input.FirstName" class="form-control" />
+            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Email"></label>
+            <input asp-for="Input.Email" class="form-control" autofocus />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.LastName"></label>
+            <input asp-for="Input.LastName" class="form-control" />
+            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Password"></label>
+            <input asp-for="Input.Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.ConfirmPassword"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.BirthDate"></label>
+            <input asp-for="Input.BirthDate" class="form-control" />
+            <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Height">Height(cm)</label>
+            <input asp-for="Input.Height" class="form-control" />
+            <span asp-validation-for="Input.Height" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Weight"> Weight (kg)</label>
+            <input asp-for="Input.Weight" class="form-control" />
+            <span asp-validation-for="Input.Weight" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Gender"></label>
+            @Html.RadioButtonFor(model => model.Input.Gender, "M", false)  @Html.Label("Male")
+            @Html.RadioButtonFor(model => model.Input.Gender, "F", false)  @Html.Label("Female")
+            <span asp-validation-for="Input.Gender" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Input.Level"></label>
+            <select asp-for="Input.Level">
+                <option>
+                    Beginner
+                </option>
+                <option>
+                    Intermediate
+                </option>
+                <option>
+                    Advanced
+                </option>
+            </select>
+            <span asp-validation-for="Input.Level" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 mb-1">
+            <label asp-for="Input.ShoeSize"></label>
+            <select asp-for="Input.ShoeSize">
+                <option>
+                    23.0
+                </option>
+                <option>
+                    23.5
+                </option>
+                <option>
+                    24.0
+                </option>
+                <option>
+                    24.5
+                </option>
+                <option>
+                    25.0
+                </option>
+                <option>
+                    25.5
+                </option>
+                <option>
+                    26.0
+                </option>
+                <option>
+                    26.5
+                </option>
+                <option>
+                    27.0
+                </option>
+                <option>
+                    27.5
+                </option>
+                <option>
+                    28.0
+                </option>
+                <option>
+                    28.5
+                </option>
+                <option>
+                    29.0
+                </option>
+                <option>
+                    29.5
+                </option>
+                <option>
+                    30.0
+                </option>
+                <option>
+                    30.5
+                </option>
+            </select>
+            <span asp-validation-for="Input.ShoeSize" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 mb-1">
+            <label asp-for="Input.PantSize"></label>
+            <select asp-for="Input.PantSize">
+                <option>
+                    32.0
+                </option>
+                <option>
+                    33.0
+                </option>
+                <option>
+                    34.0
+                </option>
+                <option>
+                    35.0
+                </option>
+                <option>
+                    36.0
+                </option>
+                <option>
+                    37.0
+                </option>
+                <option>
+                    38.5
+                </option>
+                <option>
+                    40.0
+                </option>
+                <option>
+                    43.5
+                </option>
+                <option>
+                    45.5
+                </option>
+
+            </select>
+            <span asp-validation-for="Input.PantSize" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 mb-1">
+            <label asp-for="Input.HelmetSize"></label>
+            <select asp-for="Input.HelmetSize">
+                <option>
+                    S
+                </option>
+                <option>
+                    M
+                </option>
+                <option>
+                    L
+                </option>
+                <option>
+                    XL
+                </option>
+
+            </select>
+            <span asp-validation-for="Input.HelmetSize" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 mb-1">
+            <label asp-for="Input.GloveSize"></label>
+            <select asp-for="Input.GloveSize">
+                <option>
+                    S
+                </option>
+                <option>
+                    M
+                </option>
+                <option>
+                    L
+                </option>
+                <option>
+                    XL
+                </option>
+
+            </select>
+            <span asp-validation-for="Input.GloveSize" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="button"onclick="goBack()" class="btn btn-primary">Back</button>
+</form>
+<script type="text/javascript">
+function goBack()
+  {
+  window.history.back()
+  }
+</script>
+   
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

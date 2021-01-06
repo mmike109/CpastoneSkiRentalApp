@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "ErrorPage";
+}
+    <style scoped>
+        h1{
+         color:darkred;
+        }
+       
+     #errorDiv{
+         text-align:center;
+         font-size:20px;
+     }
+    </style>
+
+    <div id="errorDiv" class="container">
+        <h1> Oops an unkown error has occured!</h1>
+        <img src="~/images/error.png" alt="error" width="1000" height="600" />
+        <p>Please consider cleaning your cache and try again<br /><a href="https://www.pcmag.com/how-to/how-to-clear-your-cache-on-any-browser">How to clean your cache</a></p>
+        <a asp-action="Index" asp-controller="Home"> Return to Home page</a>
+    </div>

@@ -1,0 +1,98 @@
+﻿@model CpastroneSkiRental.Controllers.PaginatedList<CpastroneSkiRental.Models.Deal>
+
+@{
+    ViewData["Title"] = "Delete Products";
+}
+
+<h1>Choose an item package to delete</h1>
+&nbsp;
+<style type="text/css">
+    #pictureLink {
+        width: 350px;
+        height: 330px;
+    }
+</style>
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        @if ((@item.ItemStatus == "Rented" || @item.ItemStatus == "Reparing"))
+        {
+            <a id="picLink" asp-controller="Deals" style="display:none" ; asp-action="Delete" asp-route-id="@item.DealId">
+                <div id="pictureLink" class="card">
+                    <img src="~/img/@item.ItemImage" width=300 height=200 class="card-img-top" />
+                    <div id="itemCard" class="card-body">
+                        <h9 class="card-title text-center text-body">@item.ItemDescription</h9>
+                        @if (@item.ItemSize != 0)
+                        {
+                            <h9 class="card-title text-center text-body">@item.ItemSize cm</h9>
+                        }
+                        else
+                        {
+                            <h9 class="card-title text-center text-body">Size @item.ItemAltSize</h9>
+                        }
+                        <h9 class="card-title text-center text-body">Rent Price: @item.Price$</h9>
+                    </div>
+
+                </div>
+            </a>
+        }
+        else
+        { <a id="picLink" asp-controller="Deals" asp-action="Delete" asp-route-id="@item.DealId">
+                <div id="pictureLink" class="card">
+                    <img src="~/img/@item.ItemImage" width=300 height=200 class="card-img-top" />
+                    <div id="itemCard" class="card-body">
+                        <h9 class="card-title text-center text-body">@item.ItemDescription</h9>
+                        @if (@item.ItemSize != 0)
+                        {
+                            <h9 class="card-title text-center text-body">@item.ItemSize cm</h9>
+                        }
+                        else
+                        {
+                            <h9 class="card-title text-center text-body">Size @item.ItemAltSize</h9>
+                        }
+                        <h9 class="card-title text-center text-body">Rent Price: @item.Price$</h9>
+                    </div>
+
+                </div>
+            </a>
+
+        }
+
+
+    }
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+
+<ul class="pagination">
+    <li class="page-item @prevDisabled">
+        <a asp-action="DealsDisplay"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">Previous</a>
+    </li>
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+            <a asp-action="DealsDisplay"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@i"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link">
+                @i
+            </a>
+        </li>
+    }
+    <li class="page-item @nextDisabled">
+        <a asp-action="DealsDisplay"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">Next</a>
+    </li>
+</ul>
+

@@ -1,0 +1,160 @@
+﻿@model CpastroneSkiRental.Models.JoinedClass
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<WebsiteUser> sm
+@inject UserManager<WebsiteUser> um
+@{
+    ViewData["Title"] = "Deal rental Order";
+}
+
+<h1 style="text-align:center">Deal rental Order</h1>
+    &nbsp;
+	&nbsp;
+	&nbsp;
+	&nbsp;
+	&nbsp;
+	&nbsp;
+	&nbsp;
+
+@if (sm.IsSignedIn(User))
+{
+    var userId = um.GetUserId(User);
+    var user = await um.GetUserAsync(User);
+    var userName = user.FirstName + " " + user.LastName;
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Please Choose your rent period</h4>
+            &nbsp;
+            <h7>Minimum 2 days</h7>
+            <form asp-controller="Joined" asp-action="CheckOutPayment" method="POST">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="DealId" hidden class="control-label"></label>
+                    <input asp-for="DealId" hidden id="DealId" value="@ViewBag.DealId" class="form-control" />
+                    <span asp-validation-for="DealId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserId" hidden class="control-label"></label>
+                    <input asp-for="UserId" hidden id="uId" value="@userId" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserName" hidden class="control-label"></label>
+                    <input asp-for="UserName" hidden id="uName" value="@userName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ItemName" hidden class="control-label"></label>
+                    <input asp-for="ItemName" hidden id="uDes" value="@ViewBag.dealDesc" class="form-control" />
+                    <span asp-validation-for="ItemName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentalStartDate" class="control-label"></label>
+                    <input asp-for="RentalStartDate" id="sDateCheck" class="form-control" />
+                    <span asp-validation-for="RentalStartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentalReturnDate" class="control-label"></label>
+                    <input asp-for="RentalReturnDate" id="rDateCheck" class="form-control" />
+                    <span asp-validation-for="RentalReturnDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DayesRented" hidden class="control-label"></label>
+                    <input asp-for="DayesRented" hidden id="totalDays" value="@ViewBag.DaysRented" class="form-control" />
+                    <span asp-validation-for="DayesRented" class="text-danger"></span>
+                </div>
+
+
+                <input type="button" id="createBtn" value="Proceed to checkout" class="btn btn-primary" />
+
+            </form>
+        </div>
+    </div>
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        var currentDate = "";
+
+        $("#createBtn").on("click", function (e) {
+            var date = new Date();
+            var twoDigitMonth = ((date.getMonth() + 1) < 10) ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+
+            if (date.getDate() < 10) {
+                currentDate = date.getFullYear() + "-" + twoDigitMonth+ "-0" + date.getDate();
+            } else {
+                 currentDate = date.getFullYear() + "-" + twoDigitMonth+ "-" + date.getDate();
+            }
+
+            if (!($("#sDateCheck").val() && $("#rDateCheck").val())) {
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select rent date!',
+
+                   })
+                return false;
+
+
+            } else if ($("#sDateCheck").val() < currentDate || $("#rDateCheck").val() < $("#sDateCheck").val()) {
+              Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Rent date cannot be retroactive,please select a drifferent date!',
+
+               })
+                 return false;
+            }else if  ($("#sDateCheck").val() == $("#rDateCheck").val() ) {
+              Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Rent date cannot be same day,please select a drifferent date!',
+
+               })
+                 return false;
+            }
+            else {
+
+                var uName = $("#uName").val();
+                var itemDesc = '@ViewBag.dealDesc';
+                var dealId = $("#DealId").val();
+                var uId = $("#uId").val();
+
+
+                var sDateCheck = $("#sDateCheck").val();
+                var rDateCheck = $("#rDateCheck").val();
+
+                var startDate = Date.parse(sDateCheck);
+                var endDate = Date.parse(rDateCheck);
+                var timeDiff = endDate - startDate;
+                daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Joined/CheckOutBundle/",
+                    data: {
+                        id:dealId, userId: uId, userName: uName, itemDescription: itemDesc,
+                        startRent: sDateCheck, endRent: rDateCheck, totalDays: parseInt(daysDiff)
+                    },
+                    success: function (data) {
+                        if (data.result == 'Redirect') {
+                            window.location = data.url;
+                        }
+                    }, error: function (data) {
+                    }
+                });
+            }
+
+        });
+
+    });
+</script>
+
+
+<div>
+    <a asp-controller="Deals" asp-action="Index">Back to Deals</a>
+</div>

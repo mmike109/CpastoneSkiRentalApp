@@ -1,0 +1,196 @@
+﻿@model CpastroneSkiRental.Controllers.PaginatedList<CapstoneISki.Data.Rental>
+
+@{
+    ViewData["Title"] = "Avaliablity Report";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().RentalStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().RentalReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DayesRented)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (item.RentalReturnDate > DateTime.Now.Date)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalStartDate)
+                    </td>
+                    <td style="background-color:#C4F7A1">
+                        @Html.DisplayFor(modelItem => item.RentalReturnDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DayesRented)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemStatus)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                </tr>
+            }
+
+            @if (item.RentalReturnDate == DateTime.Now.Date)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalStartDate)
+                    </td>
+                    <td style="background-color:#F4C95D">
+                        @Html.DisplayFor(modelItem => item.RentalReturnDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DayesRented)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemStatus)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                </tr>
+            }
+            @if (item.RentalReturnDate < DateTime.Now.Date)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentalStartDate)
+                    </td>
+                    <td style="background-color:#DB504A">
+                        @Html.DisplayFor(modelItem => item.RentalReturnDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DayesRented)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemStatus)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                </tr>
+            }
+
+
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<ul class="pagination">
+    <li class="page-item @prevDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="1"
+           class="page-link">First</a>
+    </li>
+    <li class="page-item @prevDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="page-link">Previous</a>
+    </li>
+    <li class="page-item @nextDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="page-link">Next</a>
+    </li>
+    <li class="page-item @nextDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.TotalPages)"
+           class="page-link">Last</a>
+    </li>
+</ul>
+<ul class="pagination">
+    <li class="page-item @prevDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="page-link">Previous</a>
+    </li>
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+            <a asp-action="Index"
+               asp-route-pageNumber="@i"
+               class="page-link">
+                @i
+            </a>
+        </li>
+    }
+    <li class="page-item @nextDisabled">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="page-link">Next</a>
+    </li>
+</ul>
+

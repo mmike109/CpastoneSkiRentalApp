@@ -1,0 +1,190 @@
+﻿@model CapstoneISki.Data.Rental
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+    <h3>Please select the appropriate option</h3>
+<div>
+
+    <hr />
+   
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemId)
+        </dt>
+        <dd class="col-sm-10">
+            @if ((Model.ItemId).Equals(0)) 
+            {
+                <text>
+                    N/A
+                </text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.ItemId)
+            }
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DealId)
+        </dt>
+        <dd class="col-sm-10">
+            @if ((Model.DealId).Equals(Guid.Empty)) 
+            {
+                <text>
+                    N/A
+                </text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.DealId)
+            }
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentalStartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentalStartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RentalReturnDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RentalReturnDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DayesRented)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DayesRented)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemStatus)
+        </dd>
+    </dl>
+ 
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="submit" id="endRentBtn" value="Make available" class="btn btn-danger" />
+            <input type="submit" id="repair" value="Send To Repair" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#endRentBtn").on("click", function () {
+
+                    var data = [];
+         @foreach (var item in (Model.ItemId).ToString())
+             {
+             <text>
+                    data.push('  @Html.DisplayFor(model => model.ItemId)');
+             </text>
+             }
+
+            if (data[0] != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Items/EndRent/",
+                    data: { id: parseInt(data[0]) }
+                });
+                return true;
+
+            }else {
+                 @foreach (var item in (Model.DealId).ToString())
+                 {
+                 <text>
+                        data.push('  @Html.DisplayFor(model => model.DealId)');
+                 </text>
+                 }
+     
+                         $.ajax({
+                             type: "POST",
+                             url: "/Deals/EndRent/",
+                             data: { id: data[1] }
+                         });
+                         return true;
+
+                     }
+                });
+            $("#repair").on("click", function () {
+                var repair = [];
+
+                 @{
+                     <text>
+                repair.push('  @Html.DisplayFor(model => model.ItemId)');
+                    </text>
+                       <text>
+                repair.push('  @Html.DisplayFor(model => model.DealId)');
+                    </text>
+                       <text>
+                repair.push('  @Html.DisplayFor(model => model.ProductId)');
+                    </text>
+               
+                
+                 }
+              $.ajax({
+                             type: "POST",
+                  url: "/Repairs/CreateRepair/",
+                  data: { id: parseInt(repair[0]),dealId: repair[1],productId: repair[2]}
+                         });
+
+             var data = [];
+
+              @foreach (var item in (Model.ItemId).ToString())
+                     {
+                     <text>
+                            data.push('  @Html.DisplayFor(model => model.ItemId)');
+                     </text>
+                     }
+             if (data[0]!=0) {
+                         $.ajax({
+                             type: "POST",
+                             url: "/Items/SendToRepair/",
+                             data: { id: parseInt(data[0]) }
+                         });
+                         return true;
+             } else {
+                @foreach (var item in (Model.DealId).ToString())
+                         {
+                         <text>
+                                data.push('  @Html.DisplayFor(model => model.DealId)');
+                         </text>
+                         }
+                             $.ajax({
+                                 type: "POST",
+                                 url: "/Deals/SendToRepair/",
+                                 data: { id: data[1] }
+                             });
+                 return true;
+
+             }
+            
+                  });
+             });
+</script>

@@ -1,0 +1,131 @@
+﻿@model IEnumerable<CpastroneSkiRental.Models.JoinedClass>
+@{
+    ViewData["Title"] = "EndBundelRepair";
+}
+
+<h1>End Bundle Repair</h1>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<div class="row">
+
+    <div class="col-md-4">
+        @foreach (var item in Model)
+        {
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().DealId)
+                </div>
+                <div class="col-md-7 mb-3">
+                    @Html.DisplayFor(modelItem => item.DealId)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <text>
+                        Description
+                    </text>
+                </div>
+                <div class="col-md-7 mb-3">
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <text>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Condition)
+                    </text>
+                </div>
+                <div class="col-md-7 mb-3">
+                    @Html.DisplayFor(modelItem => item.Condition)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <text>
+                        Repaired?
+                    </text>
+                </div>
+                <div class="col-md-7 mb-3">
+                    <input type="checkbox" id="repair" />
+                </div>
+            </div>
+
+            <a asp-controller="Repairs" asp-action="DeleteBundle" asp-route-id="@item.DealId">
+                <div class="form-group">
+                    <input type="button" id="update" value="Update" class="btn btn-primary" />
+                </div>
+            </a>
+            <a asp-controller="Joined" asp-action="ItemsOnRepair">Back to Repair List</a>
+        }
+
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+
+         $('#back').hide();
+        $('#repair').click(function () {
+            if($(this).prop("checked") == true){
+                $('#back').show();
+            }
+            else if($(this).prop("checked") == false){
+                $('#back').hide();
+            }
+
+    } );
+$("#update").click(function() {
+    if ($('#repair').prop('checked')) {
+        var data = [];
+ @foreach (var item in Model)
+     {
+     <text>
+        data.push('    @Html.DisplayFor(modelItem => item.DealId)');
+     </text>
+
+       <text>
+        data.push('@ViewBag.id');
+     </text>
+
+     }
+
+        alert(data[0]);
+
+        alert("/Deals/EndRent/" + data[0]);
+        $.ajax({
+            type: "POST",
+            url: "/Deals/EndRent/",
+            data: { id: data[0] },
+            success: function (data) {
+               // alert(data);
+            }, error: function (data) {
+                console.log(data);
+
+            }
+        });
+
+
+        alert("/Reparis/Delete/" + data[0]);
+        $.ajax({
+            type: "POST",
+            url: "/Repairs/DeleteBundle/",
+            data: { id: data[0] },
+            success: function (data) {
+                alert(data);
+            }, error: function (data) {
+                console.log(data);
+
+            }
+        });
+
+
+    }
+
+});
+   });
+
+</script>

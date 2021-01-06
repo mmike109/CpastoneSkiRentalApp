@@ -1,0 +1,165 @@
+﻿@model CpastroneSkiRental.Models.Repair
+@{
+    ViewData["Title"] = "Item Returned from repair";
+}
+
+<h1>Update item returned from repair</h1>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                @if (Model.ItemId.Equals(0))
+                {
+                    @Html.DisplayNameFor(model => model.DealId)
+                }
+                else
+                {
+                    @Html.DisplayNameFor(model => model.ItemId)
+                }
+
+            </div>
+            <div class="col-md-7 mb-3">
+
+                @if (Model.ItemId.Equals(0))
+                {
+                    @ViewBag.DealId
+                }
+                else
+                {
+                    @ViewBag.ItemId
+                }
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    Description
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                @ViewBag.ItemName
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    @Html.DisplayNameFor(model => model.Condition)
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                @ViewBag.Condition
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <text>
+                    Repaired?
+                </text>
+            </div>
+            <div class="col-md-7 mb-3">
+                <input type="checkbox" id="repair" />
+            </div>
+        </div>
+
+       
+            <div class="form-group">
+                <input type="button" id="update" value="Update" class="btn btn-primary" />
+            </div>
+       
+        <a asp-controller="Repairs" asp-action="Index">Back to Repair List</a>
+
+
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+ $(document).ready(function () {
+ $('#update').hide();
+
+  $('#repair').click(function () {
+                if($(this).prop("checked") == true){
+                    $('#update').show();
+                }
+                else if($(this).prop("checked") == false){
+                    $('#update').hide();
+                }
+ });
+$("#update").click(function() {
+    if ($('#repair').prop('checked')) {
+
+         var data = [];
+
+
+         @if (!(Model.ItemId.Equals(0)))
+         {
+
+
+         <text>
+            data.push('@ViewBag.ItemId');
+         </text>
+
+
+
+            <text>
+    
+            $.ajax({
+                type: "POST",
+                url: "/Items/EndRent/",
+                data: { id: parseInt(data[0]) }
+            });
+             </text>
+         }
+         else
+         {
+
+         <text>
+            data.push('@ViewBag.DealId');
+         </text>
+
+
+
+            <text>
+
+            $.ajax({
+                type: "POST",
+                url: "/Deals/EndRent/",
+                data: { id: data[0] }
+            });
+             </text>
+         }
+
+
+            var terminate = [];
+
+            @{ 
+                <text>
+            terminate.push('@ViewBag.RepairId');
+                </text>
+
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Repairs/DeleteBundle/",
+                data: { id: terminate[0] },
+                success: function (data) {
+                 window.location = "/Repairs/Index";
+                }, error: function (data) {
+               
+
+                }
+            });
+
+
+    }
+
+});
+   });
+
+</script>

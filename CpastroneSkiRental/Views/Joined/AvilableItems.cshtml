@@ -1,0 +1,193 @@
+﻿@model CpastroneSkiRental.Controllers.PaginatedList<CpastroneSkiRental.Models.JoinedClass>
+@{
+    ViewData["Title"] = "Avilable Items";
+}
+
+<h1>Avilable Items</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProductId)
+
+            </th>
+            <th>
+
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemId)
+
+            </th>
+            <th>
+
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DealId)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().RentalStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().RentalReturnDate)
+            </th>
+            <th>
+
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DayesRented)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ItemStatus)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+           
+                @if (!(@item.ItemStatus == "Rented" || @item.ItemStatus == "Reparing"))
+                {
+                   
+                        <tr>
+                            <td>
+                                @if ((item.ProductId).Equals(0))
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.ProductId)
+                                }
+
+
+                            </td>
+                            <td>
+                                @if ((item.ItemId).Equals(0)) 
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.ItemId)
+                                }
+
+                            </td>
+
+                            <td>
+                                @if ((item.DealId).Equals(Guid.Empty))
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.DealId)
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemName)
+                            </td>
+                            <td>
+                                @if (item.RentalStartDate != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.RentalStartDate)
+                                }
+                                else
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.RentalStartDate != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.RentalReturnDate)
+                                }
+                                else
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.RentalStartDate != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.DayesRented)
+                                }
+                                else
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                            </td>
+                            <td>
+                                @if (item.RentalStartDate != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                }
+                                else
+                                {
+                                    <text>
+                                        N/A
+                                    </text>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemStatus)
+                            </td>
+
+                          
+                        </tr>
+
+                    
+                }
+            }
+        </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<ul class="pagination">
+    <li class="page-item @prevDisabled">
+        <a asp-action="AvilableItems"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">Previous</a>
+    </li>
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+            <a asp-action="AvilableItems"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@i"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="page-link">
+                @i
+            </a>
+        </li>
+    }
+    <li class="page-item @nextDisabled">
+        <a asp-action="AvilableItems"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="page-link">Next</a>
+    </li>
+</ul>
+
